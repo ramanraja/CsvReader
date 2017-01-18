@@ -31,7 +31,8 @@ public class CSVReader {
         Scanner scanner = new Scanner(new File(csvFileName));
         while (scanner.hasNext()) {
             ArrayList<String> row = parseLine(scanner.nextLine());
-            table.add(row);
+            if (row != null && row.size() > 0)  // ignore blank lines
+                table.add(row);
         }
         scanner.close();     
         return (table);   
@@ -57,10 +58,10 @@ public class CSVReader {
         
     protected ArrayList<String> parseLine(String cvsLine) {
 
-        ArrayList<String> result = new ArrayList<>();
+        ArrayList<String> result = new ArrayList<String>();
 
         //if empty, return!
-        if (cvsLine == null && cvsLine.isEmpty()) {
+        if (cvsLine == null || cvsLine.isEmpty()) {
             return result;
         }
 
